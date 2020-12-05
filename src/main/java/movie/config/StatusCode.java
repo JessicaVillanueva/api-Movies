@@ -11,7 +11,7 @@ package movie.config;
  */
 public class StatusCode {
      public static final int OK = 200;
-    public static final int CREATE = 201;
+    public static final int CORRECT = 201;
     public static final int NO_CONTENT = 204;
     public static final int BAD_REQUEST = 400;
     public static final int UNAUTHORIZED = 401;

@@ -7,11 +7,10 @@ package movie.controllers;
 
 import com.google.gson.Gson;
 import helpers.DataResponse;
-import static java.nio.file.StandardOpenOption.CREATE;
 import java.util.ArrayList;
 import java.util.List;
-import static movie.config.StatusCode.CREATE;
 import static movie.config.StatusCode.BAD_REQUEST;
+import static movie.config.StatusCode.CORRECT;
 import static movie.config.StatusCode.NO_CONTENT;
 import static movie.config.StatusCode.OK;
 import movie.dao.CommentDao;
@@ -43,7 +42,7 @@ public class CommentController {
         int status;
         if (result == 1){
             msg = "Comentario agregado con éxito.";
-            status = CREATE;
+            status = CORRECT;
         } else{
            msg = "Ocurrió un error.";
            status = BAD_REQUEST;
