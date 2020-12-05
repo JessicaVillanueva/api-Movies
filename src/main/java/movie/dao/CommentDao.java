@@ -29,7 +29,7 @@ public class CommentDao {
         
         try {
             conn = db.getConnection();
-            String query = "SELECT * FROM comments WHERE movie_id = ?";
+            String query = "SELECT * FROM V_MOVIE_COMMENTS_DETAILS WHERE movie_id = ?";
             PreparedStatement pstm = conn.prepareStatement(query);
             pstm.setInt(1, movie_id);
             ResultSet rs = pstm.executeQuery();
@@ -38,7 +38,7 @@ public class CommentDao {
                 c.setId(rs.getInt("id"));
                 c.setDescription(rs.getString("description"));
                 c.setMovie_id(rs.getInt("movie_id"));
-                c.setUser_id(rs.getInt("user_id"));
+                c.setUsername(rs.getString("username"));
                 comments.add(c);
             }
         } catch (ClassNotFoundException ex) {
