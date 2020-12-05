@@ -57,7 +57,7 @@ public class CommentDao {
         int rs = 0;
         try{
             conn = db.getConnection();
-            String query = "INSER INTO comments(comment) VALUE(?)";
+            String query = "CALL ADD_COMMENT(?)";
             PreparedStatement pstm = conn.prepareStatement(query);
             pstm.setString(1, c.getComment());
             rs = pstm.executeUpdate();
