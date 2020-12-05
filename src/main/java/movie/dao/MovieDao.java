@@ -85,7 +85,7 @@ public class MovieDao {
         
         try {
             conn = db.getConnection();
-            String query = "SELECT * FROM movies WHERE task LIKE ?";
+            String query = "SELECT * FROM movies WHERE title LIKE ?";
             PreparedStatement pstm = conn.prepareStatement(query);
             pstm.setString(1, "%"+search+"%");
             ResultSet rs = pstm.executeQuery();
