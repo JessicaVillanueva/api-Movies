@@ -12,6 +12,7 @@ package movie.models;
 public class Comment {
     private int id;
     private String comment;
+    private String date;
     private int movie_id;
     private int user_id;
     private String username;
@@ -32,6 +33,12 @@ public class Comment {
         this.comment = comment;
     }
 
+    public String getDate(){
+        return date;
+    }
+    public void setDate(String date){
+        this.date = date;
+    }
     public int getMovie_id() {
         return movie_id;
     }

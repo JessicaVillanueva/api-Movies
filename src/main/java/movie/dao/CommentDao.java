@@ -37,6 +37,7 @@ public class CommentDao {
                 Comment c = new Comment();
                 c.setId(rs.getInt("id"));
                 c.setDescription(rs.getString("description"));
+                c.setDate(rs.getString("date"));
                 c.setMovie_id(rs.getInt("movie_id"));
                 c.setUsername(rs.getString("username"));
                 comments.add(c);
