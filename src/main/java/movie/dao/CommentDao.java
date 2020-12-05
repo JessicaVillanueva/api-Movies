@@ -6,6 +6,7 @@
 package movie.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,16 +22,17 @@ import movie.models.Comment;
  * @author HP
  */
 public class CommentDao {
-   public List<Comment> getAll() {
+   public List<Comment> getAll(int movie_id) {
         ArrayList <Comment> comments = new ArrayList<Comment>();
         ConnectionDB db = new ConnectionDB();
         Connection conn = null;
         
         try {
             conn = db.getConnection();
-            String query = "SELECT comment FROM comments INNER JOIN movies ON comments.movie_id = movies.id";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            String query = "SELECT * FROM comments WHERE movie_id = ?";
+            PreparedStatement pstm = conn.prepareStatement(query);
+            pstm.setInt(1, movie_id);
+            ResultSet rs = pstm.executeQuery();
             while(rs.next()) {
                 Comment c = new Comment();
                 c.setId(rs.getInt("id"));
@@ -47,5 +49,46 @@ public class CommentDao {
             db.close();
         }
         return comments;
-    } 
+    }
+   
+    public int save(Comment c){
+        ConnectionDB db = new ConnectionDB();
+        Connection conn = null;
+        int rs = 0;
+        try{
+            conn = db.getConnection();
+            String query = "INSER INTO comments(comment) VALUE(?)";
+            PreparedStatement pstm = conn.prepareStatement(query);
+            pstm.setString(1, c.getComment());
+            rs = pstm.executeUpdate();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex){
+            Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            db.close();
+        }
+        return rs;
+    }
+    
+    public int update(Comment c, int id){
+        ConnectionDB db = new ConnectionDB();
+        Connection conn = null;
+        int rs = 0;
+        try{
+            conn = db.getConnection();
+            String query = "UPDATE comments SET comment=? WHERE id=?";
+            PreparedStatement pstm = conn.prepareStatement(query);
+            pstm.setString(1, c.getComment());
+            pstm.setInt(2, id);
+            rs = pstm.executeUpdate();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
+        }
+        return rs;
+    }
 }

@@ -11,7 +11,7 @@ package movie.models;
  */
 public class Comment {
     private int id;
-    private String description;
+    private String comment;
     private int movie_id;
     private int user_id;
 
@@ -23,12 +23,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getComment() {
+        return comment;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String comment) {
+        this.comment = comment;
     }
 
     public int getMovie_id() {

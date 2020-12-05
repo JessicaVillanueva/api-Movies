@@ -20,7 +20,15 @@ public class CommentService {
         this.dao = dao;
     }
     
-     public List<Comment> getAll(){
-        return this.dao.getAll();
+     public List<Comment> getAll(int movie_id){
+        return this.dao.getAll(movie_id);
+    }
+     
+      public int save(Comment c) {
+        return this.dao.save(c);
+    }
+     
+    public int update(Comment c, int id) {
+        return this.dao.update(c, id);
     }
 }
