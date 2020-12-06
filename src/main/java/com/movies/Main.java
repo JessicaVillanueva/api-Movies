@@ -9,6 +9,7 @@ import movie.controllers.CommentController;
 import movie.controllers.MovieController;
 import movie.routes.CommentRoute;
 import movie.routes.MovieRoute;
+import static spark.Spark.port;
 
 /**
  *
@@ -16,6 +17,7 @@ import movie.routes.MovieRoute;
  */
 public class Main {
     public static void main(String[] args){
+        port(5555);
         new MovieRoute(new MovieController());
         new CommentRoute (new CommentController());
     }

@@ -36,10 +36,10 @@ public class CommentDao {
             while(rs.next()) {
                 Comment c = new Comment();
                 c.setId(rs.getInt("id"));
-                c.setDescription(rs.getString("description"));
-                c.setDate(rs.getString("date"));
+                c.setDescription(rs.getString("comment"));
+                c.setDate(rs.getString("date_comment"));
                 c.setMovie_id(rs.getInt("movie_id"));
-                c.setUsername(rs.getString("username"));
+                c.setUsername(rs.getString("name_user"));
                 comments.add(c);
             }
         } catch (ClassNotFoundException ex) {
@@ -58,9 +58,11 @@ public class CommentDao {
         int rs = 0;
         try{
             conn = db.getConnection();
-            String query = "CALL ADD_COMMENT(?)";
+            String query = "CALL ADD_COMMENT(?,?,?)";
             PreparedStatement pstm = conn.prepareStatement(query);
             pstm.setString(1, c.getComment());
+            pstm.setInt(2, c.getMovie_id());
+            pstm.setInt(3, c.getUser_id());
             rs = pstm.executeUpdate();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
