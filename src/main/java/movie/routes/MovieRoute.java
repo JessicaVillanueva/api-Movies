@@ -20,7 +20,6 @@ public class MovieRoute {
     private MovieController movieController;
     public MovieRoute(MovieController movieController) {
         Gson gson = new Gson();
-        port(5555);
         get("/movies", (req, res)->movieController.index(req, res), gson::toJson);
         get("/movies/:id", (req, res)->movieController.show(req, res), gson::toJson);
     }
