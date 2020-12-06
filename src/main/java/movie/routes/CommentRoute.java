@@ -22,7 +22,7 @@ public class CommentRoute {
     public CommentRoute(CommentController commentCtlr) {
         Gson gson = new Gson();
         port(5555);
-        get(COMMENT + "/:id", (req, res)->commentCtlr.index(req, res), gson::toJson);
+        get(COMMENT + "/:movie_id", (req, res)->commentCtlr.index(req, res), gson::toJson);
         post(COMMENT, (req, res)-> commentCtlr.store(req, res), gson::toJson);
         put(COMMENT + "/:id", (req, res)-> commentCtlr.update(req, res), gson::toJson);
     }
