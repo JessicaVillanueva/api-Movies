@@ -31,9 +31,8 @@ public class JwtTokenProvider {
         Date expireDate = new Date(now.getTime() + TOKEN_EXPIRATION);
         Algorithm alg = Algorithm.HMAC256(JWT_SECRET);
         
-        return JWT.create()
+        return JWT.create().withClaim("id", u.getId())
                 .withClaim("email", u.getEmail())
-                .withClaim("id", u.getId())
                 .withExpiresAt(expireDate)
                 .sign(alg);
     }
@@ -45,7 +44,8 @@ public class JwtTokenProvider {
                     .build().verify(token);
             return true;
         } catch(JWTVerificationException ex) {
-            return false;
+            //return false;
+            throw new JWTVerificationException(ex.getMessage());
         }
     }
     
@@ -55,7 +55,7 @@ public class JwtTokenProvider {
         DecodedJWT jwtToken = JWT.require(alg)
                 .build()
                 .verify(token);
-        Claim claim = jwtToken.getClaim("idUser");
+        Claim claim = jwtToken.getClaim("id");
         return claim.asInt();
     }
     

@@ -5,11 +5,19 @@
  */
 package movie.routes;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.google.gson.Gson;
 import static movie.config.ResourceNames.API;
 import static movie.config.ResourceNames.COMMENT;
+import static movie.config.ResourceNames.MOVIE;
+import static movie.config.StatusCode.UNAUTHORIZED;
 import movie.controllers.CommentController;
+import movie.exceptions.NotFoundTokenException;
+import movie.helpers.DataResponse;
+import movie.helpers.JwtTokenProvider;
+import static spark.Spark.before;
 import static spark.Spark.get;
+import static spark.Spark.halt;
 import static spark.Spark.path;
 import static spark.Spark.post;
 import static spark.Spark.put;
@@ -23,10 +31,28 @@ public class CommentRoute {
     public CommentRoute(CommentController commentCtlr) {
         Gson gson = new Gson();
         
-        path(API, () ->{
-            get(COMMENT + "/:movie_id", (req, res)->commentCtlr.index(req, res), gson::toJson);
-            post(COMMENT, (req, res)-> commentCtlr.store(req, res), gson::toJson);
-            put(COMMENT + "/:id", (req, res)-> commentCtlr.update(req, res), gson::toJson);
+        path(API + COMMENT, () ->{
+            before("/*", (req, res) ->{
+                res.type("application/json");
+                 DataResponse response = new DataResponse();
+                try {
+                    String jwtToken = JwtTokenProvider.extractTokenFromRequest(req);
+                    JwtTokenProvider.validateToken(jwtToken);
+                    req.attribute("id", JwtTokenProvider.getUserId(jwtToken));
+                } catch(NotFoundTokenException e) {
+                    response.setStatus(UNAUTHORIZED).write(e.getMessage());
+                    halt(UNAUTHORIZED, new Gson().toJson(response));
+                } catch(JWTVerificationException e) {
+                    response.setStatus(UNAUTHORIZED).write(e.getMessage());
+                    halt(UNAUTHORIZED, new Gson().toJson(response));
+                }
+            });
+            
+            get("/:movie_id", (req, res)->commentCtlr.index(req, res), gson::toJson);
+            post("/", (req, res)-> commentCtlr.store(req, res), gson::toJson);
+            put("/:id", (req, res)-> commentCtlr.update(req, res), gson::toJson);
         });
     }
 }
+
+

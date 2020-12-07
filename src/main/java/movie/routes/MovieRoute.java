@@ -34,7 +34,7 @@ public class MovieRoute {
                 try {
                     String jwtToken = JwtTokenProvider.extractTokenFromRequest(req);
                     JwtTokenProvider.validateToken(jwtToken);
-                    req.attribute("userId", JwtTokenProvider.getUserId(jwtToken));
+                    req.attribute("id", JwtTokenProvider.getUserId(jwtToken));
                 } catch(NotFoundTokenException e) {
                     response.setStatus(UNAUTHORIZED).write(e.getMessage());
                     halt(UNAUTHORIZED, new Gson().toJson(response));
