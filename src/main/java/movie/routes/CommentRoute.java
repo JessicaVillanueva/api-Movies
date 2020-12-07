@@ -8,7 +8,7 @@ package movie.routes;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.google.gson.Gson;
 import static movie.config.ResourceNames.API;
-import static movie.config.ResourceNames.COMMENT;
+import static movie.config.ResourceNames.COMMENTS;
 import static movie.config.ResourceNames.MOVIE;
 import static movie.config.StatusCode.UNAUTHORIZED;
 import movie.controllers.CommentController;
@@ -31,8 +31,8 @@ public class CommentRoute {
     public CommentRoute(CommentController commentCtlr) {
         Gson gson = new Gson();
         
-        path(API + COMMENT, () ->{
-            before("/*", (req, res) ->{
+        path(API + COMMENTS, () ->{
+            /* before("/*", (req, res) ->{
                 res.type("application/json");
                  DataResponse response = new DataResponse();
                 try {
@@ -46,7 +46,7 @@ public class CommentRoute {
                     response.setStatus(UNAUTHORIZED).write(e.getMessage());
                     halt(UNAUTHORIZED, new Gson().toJson(response));
                 }
-            });
+            });*/
             
             get("/:movie_id", (req, res)->commentCtlr.index(req, res), gson::toJson);
             post("/", (req, res)-> commentCtlr.store(req, res), gson::toJson);
