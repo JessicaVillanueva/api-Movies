@@ -43,13 +43,11 @@ public class UserDao {
     
     public User findByCredentials(String email, String password) {
         ConnectionDB db = new ConnectionDB();
-        Connection conn = null;
         User u = null;
-        try {
-            conn = db.getConnection();
+        try(Connection conn = db.getConnection()){
             String query = "SELECT * FROM users WHERE email=? AND password=SHA1(?)";
             PreparedStatement pstm = conn.prepareStatement(query);
-            pstm.setString(1, email); 
+            pstm.setString(1, email);
             pstm.setString(2, password);
             ResultSet rs = pstm.executeQuery();
             if(rs.next()) {
@@ -61,11 +59,9 @@ public class UserDao {
                 u.setEmail(rs.getString("email"));
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            db.close();
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return u;
     }

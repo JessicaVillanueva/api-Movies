@@ -6,7 +6,7 @@
 package movie.controllers;
 
 import com.google.gson.Gson;
-import helpers.DataResponse;
+import movie.helpers.DataResponse;
 import static movie.config.StatusCode.BAD_REQUEST;
 import static movie.config.StatusCode.CORRECT;
 import movie.dao.UserDao;

@@ -11,9 +11,9 @@ package movie.config;
  */
 public class ResourceNames {
     public static final String API = "/api";
-     public static final String COMMENT = "/comment";
-     public static final String MOVIE = "/movies";
-     public static final String USERS = "/users";
-     public static final String AUTH = "/auth";
+    public static final String COMMENT = "/comment";
+    public static final String MOVIE = "/movies";
+    public static final String USERS = "/users";
+    public static final String AUTH = "/auth";
     public static final String AUTH_LOGIN = AUTH + "/login";
 }

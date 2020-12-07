@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helpers;
+package movie.helpers;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -13,8 +13,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import java.util.Calendar;
 import java.util.Date;
 import static movie.config.Secret.*;
-import exceptions.NotFoundTokenException;
-import exceptions.NotFoundUserIdException;
+import movie.exceptions.NotFoundTokenException;
 import movie.models.User;
 import spark.Request;
 
@@ -50,28 +49,24 @@ public class JwtTokenProvider {
         }
     }
     
-    public static int getUserId(String token) throws NotFoundUserIdException {
-         try {
-            Algorithm alg = Algorithm.HMAC256(JWT_SECRET);
-            
-             DecodedJWT jwt = JWT.require(alg)
-                    .build()
-                    .verify(token);
-             Claim claim = jwt.getClaim("id");
-            return claim.asInt();
-        } catch(JWTVerificationException ex) {
-            throw new NotFoundUserIdException("Not found user id");
-        }
+    public static int getUserId(String token) {
+       Algorithm alg = Algorithm.HMAC256(JWT_SECRET);
+       
+        DecodedJWT jwtToken = JWT.require(alg)
+                .build()
+                .verify(token);
+        Claim claim = jwtToken.getClaim("idUser");
+        return claim.asInt();
     }
     
-    public static boolean headerHasToken(String jwtToken){
-        return jwtToken != null ?  jwtToken.startsWith(TOKEN_TYPE) : false;
+    public static boolean isValidFormatJWT(String jwtToken) {
+        return jwtToken != null ? jwtToken.startsWith(TOKEN_TYPE) : false;
     }
     
-    public static String extractTokenfromRequest(Request req) throws NotFoundTokenException {
-         String jwtToken = req.headers(HEADER_AUTH);
-        if(!headerHasToken(jwtToken))
-            throw new NotFoundTokenException("Token not found");
+    public static String extractTokenFromRequest(Request req) throws NotFoundTokenException {
+        String jwtToken = req.headers(HEADER_AUTH);
+        if(!isValidFormatJWT(jwtToken)) 
+           throw new NotFoundTokenException("Invlaid jwt token format");
         
         return jwtToken.substring(TOKEN_TYPE.length());
     }

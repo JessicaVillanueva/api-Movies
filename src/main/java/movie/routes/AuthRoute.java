@@ -8,6 +8,7 @@ package movie.routes;
 import com.google.gson.Gson;
 import static movie.config.ResourceNames.*;
 import movie.controllers.AuthController;
+import static spark.Spark.path;
 import static spark.Spark.post;
 
 /**
@@ -17,7 +18,8 @@ import static spark.Spark.post;
 public class AuthRoute {
     public AuthRoute(AuthController authController) {
         Gson gson = new Gson();
-        
-        post(AUTH_LOGIN, (req, res) -> authController.login(req, res), gson::toJson);
+        path(API, () ->{
+            post(AUTH_LOGIN, (req, res) -> authController.login(req, res), gson::toJson);
+        });
     }
 }

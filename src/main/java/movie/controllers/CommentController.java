@@ -6,7 +6,7 @@
 package movie.controllers;
 
 import com.google.gson.Gson;
-import helpers.DataResponse;
+import movie.helpers.DataResponse;
 import java.util.ArrayList;
 import java.util.List;
 import static movie.config.StatusCode.BAD_REQUEST;

@@ -5,8 +5,8 @@
  */
 package movie.services;
 
-import exceptions.ValidLoginException;
 import movie.dao.UserDao;
+import movie.exceptions.ValidateLoginException;
 import movie.models.User;
 
 /**
@@ -20,10 +20,10 @@ public class AuthService {
         this.userDao = userDao;
     }
             
-    public User login(String email, String password) throws ValidLoginException {
+    public User login(String email, String password) throws ValidateLoginException {
         User u = this.userDao.findByCredentials(email, password);
         if(u == null) {
-            throw new ValidLoginException("Usuario o contraseña incorrectos");
+            throw new ValidateLoginException("Usuario o contraseña incorrectos");
         } 
         return u;
     }

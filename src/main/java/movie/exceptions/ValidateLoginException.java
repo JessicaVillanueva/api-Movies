@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package exceptions;
+package movie.exceptions;
 
 /**
  *
  * @author jessi
  */
-public class ValidLoginException extends Exception{
-    public ValidLoginException(String message) {
+public class ValidateLoginException extends Exception{
+    public ValidateLoginException(String message) {
         super(message);
     }
 }

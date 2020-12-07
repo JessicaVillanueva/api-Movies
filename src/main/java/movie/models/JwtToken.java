@@ -10,7 +10,7 @@ package movie.models;
  * @author jessi
  */
 public class JwtToken {
-    public String token;
+    private String token;
 
     public String getToken() {
         return token;
