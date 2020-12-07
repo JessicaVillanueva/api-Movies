@@ -32,7 +32,7 @@ public class CommentRoute {
         Gson gson = new Gson();
         
         path(API + COMMENTS, () ->{
-            /* before("/*", (req, res) ->{
+             before("/*", (req, res) ->{
                 res.type("application/json");
                  DataResponse response = new DataResponse();
                 try {
@@ -46,7 +46,7 @@ public class CommentRoute {
                     response.setStatus(UNAUTHORIZED).write(e.getMessage());
                     halt(UNAUTHORIZED, new Gson().toJson(response));
                 }
-            });*/
+            });
             
             get("/:movie_id", (req, res)->commentCtlr.index(req, res), gson::toJson);
             post("/", (req, res)-> commentCtlr.store(req, res), gson::toJson);
