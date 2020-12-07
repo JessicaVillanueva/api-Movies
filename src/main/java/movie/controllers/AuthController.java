@@ -8,6 +8,10 @@ package movie.controllers;
 import com.google.gson.Gson;
 import exceptions.ValidLoginException;
 import helpers.DataResponse;
+import static movie.config.StatusCode.*;
+import helpers.DataResponse;
+import helpers.JwtTokenProvider;
+import movie.models.JwtToken;
 import movie.dao.UserDao;
 import movie.models.User;
 import movie.services.AuthService;
@@ -22,7 +26,7 @@ public class AuthController {
     public DataResponse login(Request req, Response res) {
        res.type("application/json");
        
-       AuthService movieService = new AuthService(new UserDao());
+       AuthService commentService = new AuthService(new UserDao());
        DataResponse response = new DataResponse();
         String msg = "";
        int status;
@@ -30,7 +34,7 @@ public class AuthController {
        try {
             String email = req.queryParams("email"); 
             String password = req.queryParams("password");
-            User u = movieService.login(email, password);
+            User u = commentService.login(email, password);
             JwtToken token = new JwtToken();
             token.setToken(JwtTokenProvider.generateToken(u));
             status = OK;

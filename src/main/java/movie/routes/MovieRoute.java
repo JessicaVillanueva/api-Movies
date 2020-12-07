@@ -6,11 +6,11 @@
 package movie.routes;
 
 import com.google.gson.Gson;
+import static movie.config.ResourceNames.API;
+import static movie.config.ResourceNames.MOVIE;
 import movie.controllers.MovieController;
 import static spark.Spark.get;
-import static spark.Spark.port;
-import static spark.Spark.post;
-import static spark.Spark.put;
+import static spark.Spark.path;
 
 /**
  *
@@ -20,7 +20,10 @@ public class MovieRoute {
     private MovieController movieController;
     public MovieRoute(MovieController movieController) {
         Gson gson = new Gson();
-        get("/movies", (req, res)->movieController.index(req, res), gson::toJson);
-        get("/movies/:id", (req, res)->movieController.show(req, res), gson::toJson);
+        path(API, () ->{
+            get(MOVIE, (req, res)->movieController.index(req, res), gson::toJson);
+            get(MOVIE + "/:id", (req, res)->movieController.show(req, res), gson::toJson);
+        });
+        
     }
 }

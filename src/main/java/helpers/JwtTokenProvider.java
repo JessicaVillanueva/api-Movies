@@ -5,17 +5,17 @@
  */
 package helpers;
 
-import auth0.jwt.algorithms.Algorithm;
-import java.util.Calendar;
-import java.util.Date;
-import com.auth0.jwt.*;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import java.util.Calendar;
+import java.util.Date;
 import static movie.config.Secret.*;
-import com.todo.exceptions.NotFoundTokenException;
-import com.todo.exceptions.NotFoundUserIdException;
-import com.todo.models.User;
+import exceptions.NotFoundTokenException;
+import exceptions.NotFoundUserIdException;
+import movie.models.User;
 import spark.Request;
 
 /**

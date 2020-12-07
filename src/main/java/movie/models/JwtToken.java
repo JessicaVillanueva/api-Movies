@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JwtToken;
+package movie.models;
 
 /**
  *
  * @author jessi
  */
-public class java {
+public class JwtToken {
     public String token;
 
     public String getToken() {
@@ -18,6 +18,5 @@ public class java {
 
     public void setToken(String token) {
         this.token = token;
-    }
-    
+    }   
 }

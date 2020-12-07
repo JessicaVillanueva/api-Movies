@@ -6,6 +6,9 @@
 package movie.routes;
 
 import com.google.gson.Gson;
+import static movie.config.ResourceNames.*;
+import movie.controllers.AuthController;
+import static spark.Spark.post;
 
 /**
  *

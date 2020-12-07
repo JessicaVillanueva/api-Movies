@@ -10,8 +10,8 @@ package movie.config;
  * @author HP
  */
 public class StatusCode {
-     public static final int OK = 200;
-    public static final int CORRECT = 201;
+    public static final int OK = 200;
+    public static final int CORRECT = 201; //tambien puede ser CREATE
     public static final int NO_CONTENT = 204;
     public static final int BAD_REQUEST = 400;
     public static final int UNAUTHORIZED = 401;
