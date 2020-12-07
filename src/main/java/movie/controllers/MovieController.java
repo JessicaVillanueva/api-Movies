@@ -7,7 +7,10 @@ package movie.controllers;
 
 import com.google.gson.Gson;
 import java.util.List;
+import static movie.config.StatusCode.CORRECT;
+import static movie.config.StatusCode.NO_CONTENT;
 import movie.dao.MovieDao;
+import movie.helpers.DataResponse;
 import movie.models.Movie;
 import movie.services.MovieService;
 import spark.Request;
@@ -22,9 +25,18 @@ public class MovieController {
         res.type("application/json");
         MovieService movieService = new MovieService(new MovieDao());
         //int page = req.queryParams("page") != null ?  Integer.parseInt(req.queryParams("page")) : 0;
-        if(req.queryParams("search") != null) 
+        DataResponse response = new DataResponse();
+        String msg;
+        int status;
+        if(req.queryParams("search") != null){
+            msg = "Búsqueda realizada con éxito.";
+            status = CORRECT;
             return movieService.find(req.queryParams("search"));
-        
+        } else{
+            msg = "No se encontraron películas.";
+            status = NO_CONTENT;
+        }    
+        res.status(status);
         return movieService.getAll();
     }
     
