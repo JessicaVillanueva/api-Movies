@@ -20,7 +20,7 @@ public class LikeDislikeService {
         this.dao = dao;
     }
     
-     public List<LikeDislike> getAll(int movie_id) throws SQLException{
+     public List<LikeDislike> getAll(int movie_id){
         return this.dao.getAll(movie_id);
     }
      

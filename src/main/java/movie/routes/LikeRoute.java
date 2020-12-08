@@ -8,7 +8,7 @@ package movie.routes;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.google.gson.Gson;
 import static movie.config.ResourceNames.API;
-import static movie.config.ResourceNames.COMMENTS;
+import static movie.config.ResourceNames.LIKES;
 import static movie.config.ResourceNames.MOVIE;
 import static movie.config.StatusCode.UNAUTHORIZED;
 import movie.controllers.LikeController;
@@ -30,14 +30,14 @@ public class LikeRoute {
     private LikeController likeCtlr;
     public LikeRoute(LikeController likeCtlr) {
         Gson gson = new Gson();
-        
-        path(API + COMMENTS, () ->{
+        path(API + LIKES, () ->{
              before("/*", (req, res) ->{
                 res.type("application/json");
                  DataResponse response = new DataResponse();
                 try {
                     String jwtToken = JwtTokenProvider.extractTokenFromRequest(req);
                     JwtTokenProvider.validateToken(jwtToken);
+                    //aqui obtienes el id del token y lo pones en el req
                     req.attribute("id", JwtTokenProvider.getUserId(jwtToken));
                 } catch(NotFoundTokenException e) {
                     response.setStatus(UNAUTHORIZED).write(e.getMessage());

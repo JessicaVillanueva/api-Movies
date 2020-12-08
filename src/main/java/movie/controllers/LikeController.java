@@ -29,7 +29,7 @@ import spark.Response;
  * @author HP
  */
 public class LikeController {
-    public List<LikeDislike> index(Request req, Response res) throws SQLException {
+    public List<LikeDislike> index(Request req, Response res) {
         res.type("application/json");
         LikeDislikeService likeService = new LikeDislikeService(new LikeDao());
         int movie_id = Integer.parseInt(req.params(":movie_id"));

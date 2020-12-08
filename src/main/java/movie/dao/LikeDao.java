@@ -21,7 +21,7 @@ import movie.models.LikeDislike;
  * @author HP
  */
 public class LikeDao {
-    public List<LikeDislike> getAll(int movie_id) throws SQLException {
+    public List<LikeDislike> getAll(int movie_id) {
         ArrayList <LikeDislike> likes = new ArrayList<LikeDislike>();
         ConnectionDB db = new ConnectionDB();
         Connection conn = null;
@@ -36,7 +36,7 @@ public class LikeDao {
                 LikeDislike ld = new LikeDislike();
                 ld.setId(rs.getInt("id"));
                 ld.setCriterio(rs.getString("criterio"));
-                ld.setUser_id(rs.getInt("user_id"));
+                ld.setMovie_id(rs.getInt("movie_id"));
                 likes.add(ld);
             }
         } catch (ClassNotFoundException ex) {
