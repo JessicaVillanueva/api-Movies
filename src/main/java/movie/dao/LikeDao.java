@@ -76,10 +76,10 @@ public class LikeDao {
         int rs = 0;
         try{
             conn = db.getConnection();
-            String query = "UPDATE like SET criterio=? WHERE id=?";
+            String query = "UPDATE likes SET criterio = ? WHERE id = ?";
             PreparedStatement pstm = conn.prepareStatement(query);
             pstm.setString(1, ld.getCriterio());
-            pstm.setInt(2, id);
+            pstm.setInt(2, id); 
             rs = pstm.executeUpdate();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(LikeDao.class.getName()).log(Level.SEVERE, null, ex);
