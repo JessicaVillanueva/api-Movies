@@ -21,14 +21,42 @@ import movie.models.LikeDislike;
  * @author HP
  */
 public class LikeDao {
-    public List<LikeDislike> getAll(int movie_id) {
+    public List<LikeDislike> getAllLikes(int movie_id) {
         ArrayList <LikeDislike> likes = new ArrayList<LikeDislike>();
         ConnectionDB db = new ConnectionDB();
         Connection conn = null;
         
         try {
             conn = db.getConnection();
-            String query = "SELECT * FROM V_MOVIE_LIKES_DISLIKES WHERE movie_id = ?";
+            String query = "SELECT * FROM V_COUNT_LIKES_MOVIES";
+            PreparedStatement pstm = conn.prepareStatement(query);
+            pstm.setInt(1, movie_id);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()) {
+                LikeDislike ld = new LikeDislike();
+                ld.setId(rs.getInt("id"));
+                ld.setCriterio(rs.getString("criterio"));
+                ld.setMovie_id(rs.getInt("movie_id"));
+                likes.add(ld);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LikeDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(LikeDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
+        }
+        return likes;
+    }
+    
+    public List<LikeDislike> getAllDislikes(int movie_id) {
+        ArrayList <LikeDislike> likes = new ArrayList<LikeDislike>();
+        ConnectionDB db = new ConnectionDB();
+        Connection conn = null;
+        
+        try {
+            conn = db.getConnection();
+            String query = "SELECT * FROM V_COUNT_DISLIKES_MOVIES";
             PreparedStatement pstm = conn.prepareStatement(query);
             pstm.setInt(1, movie_id);
             ResultSet rs = pstm.executeQuery();
@@ -90,5 +118,5 @@ public class LikeDao {
         }
         return rs;
     }
-    
+        
 }
