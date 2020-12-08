@@ -33,7 +33,14 @@ public class LikeController {
         res.type("application/json");
         LikeDislikeService likeService = new LikeDislikeService(new LikeDao());
         int movie_id = Integer.parseInt(req.params(":movie_id"));
-        return likeService.getAll(movie_id);
+        return likeService.getAllLikes(movie_id);
+    }
+    
+    public List<LikeDislike> index_dos(Request req, Response res) {
+        res.type("application/json");
+        LikeDislikeService likeService = new LikeDislikeService(new LikeDao());
+        int movie_id = Integer.parseInt(req.params(":movie_id"));
+        return likeService.getAllDislikes(movie_id);
     }
     
     public DataResponse store(Request req, Response res){

@@ -49,6 +49,7 @@ public class LikeRoute {
             });
             
             get("/:movie_id", (req, res)->likeCtlr.index(req, res), gson::toJson);
+            get("/:movie_id", (req, res)->likeCtlr.index_dos(req, res), gson::toJson);
             post("/", (req, res)-> likeCtlr.store(req, res), gson::toJson);
             put("/:id", (req, res)-> likeCtlr.update(req, res), gson::toJson);
         });

@@ -20,8 +20,12 @@ public class LikeDislikeService {
         this.dao = dao;
     }
     
-     public List<LikeDislike> getAll(int movie_id){
-        return this.dao.getAll(movie_id);
+     public List<LikeDislike> getAllLikes(int movie_id){
+        return this.dao.getAllLikes(movie_id);
+    }
+    
+    public List<LikeDislike> getAllDislikes(int movie_id){
+        return this.dao.getAllDislikes(movie_id);
     }
      
       public int save(LikeDislike ld) {
