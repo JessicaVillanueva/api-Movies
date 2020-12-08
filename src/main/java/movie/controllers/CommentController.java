@@ -36,7 +36,10 @@ public class CommentController {
         res.type("application/json");
         Comment c = new Gson().fromJson(req.body(), Comment.class);
         CommentService commentService = new CommentService(new CommentDao());
+        int userId = req.attribute("id");
+        c.setUser_id(userId);
         int result = commentService.save(c);
+        
         DataResponse response = new DataResponse();
         String msg;
         int status;

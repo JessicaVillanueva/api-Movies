@@ -1,8 +1,8 @@
-movie\db\ConnectionDB.class
-movie\models\Movie.class
 movie\controllers\MovieController.class
 movie\services\MovieService.class
 com\movies\Main.class
 movie\config\Database.class
 movie\dao\MovieDao.class
 movie\routes\MovieRoute.class
+movie\models\Movie.class
+movie\db\ConnectionDB.class
